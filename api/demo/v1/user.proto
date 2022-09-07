@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package api.demo.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+option go_package = "kratos-demo/api/demo/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.demo.v1";
+
+service User {
+
+  rpc CreateUser (CreateUserRequest) returns (UserReply)
+  {
+    option (google.api.http) = {
+      post: "/user/create"
+      body: "*"
+    };
+  }
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply){
+    option (google.api.http) = {
+      post: "/user/update"
+      body: "*"
+    };
+  }
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply){
+    option (google.api.http) = {
+      post: "/user/delete"
+      body: "*"
+    };
+  }
+  rpc GetUser (GetUserRequest) returns (UserReply){
+    option (google.api.http) = {
+      get: "/user/get"
+    };
+  }
+  rpc ListUser (ListUserRequest) returns (ListUserReply){
+    option (google.api.http) = {
+      get: "/user/list"
+    };
+  }
+}
+
+
+message UserReply {
+  uint64 id = 1;
+  string  username = 2;
+  string nickname = 3;
+  string mobile = 4;
+  string email = 5;
+
+}
+
+message CreateUserRequest {
+  string username = 1[(validate.rules).string.min_len = 1];
+  string nickname = 2;
+  string mobile = 3;
+  string email = 4[(validate.rules).string.min_len = 1];
+  sint32 sex = 5;
+  string password = 6[(validate.rules).string.min_len = 1];
+}
+
+
+message UpdateUserRequest {}
+message UpdateUserReply {}
+
+message DeleteUserRequest {}
+message DeleteUserReply {}
+
+message GetUserRequest {}
+message GetUserReply {}
+
+message ListUserRequest {}
+message ListUserReply {}

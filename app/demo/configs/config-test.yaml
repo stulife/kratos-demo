@@ -1,0 +1,14 @@
+nacos:
+  discovery:
+    ip: 127.0.0.1
+    port: 8848
+    NamespaceId: public
+    Group: KRATOS_GROUP
+    TimeoutMs: 5000
+  config:
+    ip: 127.0.0.1
+    port: 8848
+    NamespaceId: public
+    Group: KRATOS_GROUP
+    TimeoutMs: 5000
+    DataId: kratos_use_config.yaml

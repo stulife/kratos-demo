@@ -1,0 +1,37 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "kratos-demo/app/demo/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message NacosBootstrap {
+  Nacos nacos = 1;
+}
+message Nacos{
+  message Discovery{
+    string ip = 1;
+    uint64 port = 2;
+    string  NamespaceId = 3;
+    string Group = 4;
+    uint64 TimeoutMs = 5;
+    bool  NotLoadCacheAtStart = 6;
+    string  LogDir = 7;
+    string CacheDir = 8;
+    string LogLevel = 9;
+  }
+  message Config{
+    string ip = 1;
+    uint64 port = 2;
+    string  NamespaceId = 3;
+    string Group = 4;
+    uint64 TimeoutMs = 5;
+    bool  NotLoadCacheAtStart = 6;
+    string  LogDir = 7;
+    string CacheDir = 8;
+    string LogLevel = 9;
+    string DataId = 10;
+  }
+  Discovery discovery = 1;
+  Config config = 2;
+}

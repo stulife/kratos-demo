@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package api.demo.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+option go_package = "kratos-demo/api/demo/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.demo.v1";
+
+
+service Login {
+  rpc GetCaptcha (GetCaptchaRequest) returns (GetCaptchaReply)
+  {
+    option (google.api.http) = {
+      get: "/login/getCaptcha"
+    };
+  }
+
+  rpc Login (LoginRequest) returns (LoginReply){
+    option (google.api.http) = {
+      post: "/login"
+      body: "*"
+    };
+  }
+}
+
+message GetCaptchaRequest {}
+message GetCaptchaReply {
+  string id = 1;
+  string base64string = 2;
+}
+
+message LoginRequest {
+  string username = 1[(validate.rules).string.min_len = 1];
+  string password = 2[(validate.rules).string.min_len = 1];
+  string verifyCode = 3[(validate.rules).string.min_len = 1];
+  string verifyKey = 4 [(validate.rules).string.min_len = 1];
+}
+message LoginReply {
+  string token = 1;
+  UserRes userInfo = 2;
+}
+message UserRes {
+  uint64 id = 1;
+  string  username = 2;
+  string nickname = 3;
+  string mobile = 4;
+  string email = 5;
+
+}
